@@ -28,6 +28,10 @@ class PlacemarkPresenter(val view: PlacemarkView) {
       edit = true
       placemark = view.intent.extras.getParcelable<PlacemarkModel>("placemark_edit")
       view.showPlacemark(placemark)
+    } else {
+      placemark.lat = location.lat
+      placemark.lng = location.lng
+      placemark.zoom = location.zoom
     }
   }
 
@@ -83,6 +87,7 @@ class PlacemarkPresenter(val view: PlacemarkView) {
         placemark.lat = location.lat
         placemark.lng = location.lng
         placemark.zoom = location.zoom
+        doConfigureMap(view.map)
       }
     }
   }
