@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_placemark.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
@@ -14,6 +15,7 @@ import org.wit.placemark.models.PlacemarkModel
 
 class PlacemarkView : AppCompatActivity(), AnkoLogger {
 
+  lateinit var map: GoogleMap
   lateinit var presenter: PlacemarkPresenter
   var placemark = PlacemarkModel()
 
@@ -22,6 +24,12 @@ class PlacemarkView : AppCompatActivity(), AnkoLogger {
     setContentView(R.layout.activity_placemark)
     toolbarAdd.title = title
     setSupportActionBar(toolbarAdd)
+
+    mapView.onCreate(savedInstanceState);
+    mapView.getMapAsync {
+      map = it
+      presenter.doConfigureMap(map)
+    }
 
     presenter = PlacemarkPresenter(this)
 
@@ -69,6 +77,31 @@ class PlacemarkView : AppCompatActivity(), AnkoLogger {
 
   override fun onBackPressed() {
     presenter.doCancel()
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    mapView.onDestroy()
+  }
+
+  override fun onLowMemory() {
+    super.onLowMemory()
+    mapView.onLowMemory()
+  }
+
+  override fun onPause() {
+    super.onPause()
+    mapView.onPause()
+  }
+
+  override fun onResume() {
+    super.onResume()
+    mapView.onResume()
+  }
+
+  override fun onSaveInstanceState(outState: Bundle?) {
+    super.onSaveInstanceState(outState)
+    mapView.onSaveInstanceState(outState)
   }
 }
 

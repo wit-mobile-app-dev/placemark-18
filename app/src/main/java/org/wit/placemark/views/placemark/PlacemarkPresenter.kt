@@ -1,6 +1,10 @@
 package org.wit.placemark.views.placemark
 
 import android.content.Intent
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import org.jetbrains.anko.intentFor
 import org.wit.placemark.views.editlocation.EditLocationView
 import org.wit.placemark.helpers.showImagePicker
@@ -25,6 +29,14 @@ class PlacemarkPresenter(val view: PlacemarkView) {
       placemark = view.intent.extras.getParcelable<PlacemarkModel>("placemark_edit")
       view.showPlacemark(placemark)
     }
+  }
+
+  fun doConfigureMap(map : GoogleMap) {
+    map.uiSettings.setZoomControlsEnabled(true)
+    val loc = LatLng(placemark.lat, placemark.lng)
+    val options = MarkerOptions().title(placemark.title).position(loc)
+    map.addMarker(options)
+    map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, placemark.zoom))
   }
 
   fun doAddOrSave(title: String, description: String) {
