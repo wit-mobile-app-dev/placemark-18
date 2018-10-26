@@ -103,5 +103,9 @@ class PlacemarkView : AppCompatActivity(), AnkoLogger {
     super.onSaveInstanceState(outState)
     mapView.onSaveInstanceState(outState)
   }
+
+  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    presenter.doRequestPermissionsResult(requestCode, permissions, grantResults)
+  }
 }
 
