@@ -70,6 +70,7 @@ class PlacemarkPresenter(val view: PlacemarkView) {
   }
 
   fun doConfigureMap(map: GoogleMap) {
+    map.clear()
     map.uiSettings.setZoomControlsEnabled(true)
     val loc = LatLng(placemark.lat, placemark.lng)
     val options = MarkerOptions().title(placemark.title).position(loc)
