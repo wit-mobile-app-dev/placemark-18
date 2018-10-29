@@ -27,7 +27,7 @@ class PlacemarkPresenter(val view: PlacemarkView) {
 
   var locationService: FusedLocationProviderClient
   var app: MainApp
-  var edit = false;
+  var edit = false
 
   init {
     app = view.application as MainApp
@@ -38,8 +38,9 @@ class PlacemarkPresenter(val view: PlacemarkView) {
       placemark = view.intent.extras.getParcelable<PlacemarkModel>("placemark_edit")
       view.showPlacemark(placemark)
     } else {
-      checkLocationPermissions(view)
-      doSetCurrentLocation()
+      if (checkLocationPermissions(view)) {
+        doSetCurrentLocation()
+      }
     }
   }
 
@@ -53,9 +54,18 @@ class PlacemarkPresenter(val view: PlacemarkView) {
     }
   }
 
+  fun doSetDefaultLocation() {
+    placemark.lat = location.lat
+    placemark.lng = location.lng
+    placemark.zoom = location.zoom
+    doConfigureMap(view.map)
+  }
+
   fun doRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
     if (isPermissionGranted(requestCode, grantResults)) {
       doSetCurrentLocation()
+    } else {
+      doSetDefaultLocation()
     }
   }
 

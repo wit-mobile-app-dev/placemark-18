@@ -8,10 +8,14 @@ import android.util.Log
 
 val REQUEST_PERMISSIONS_REQUEST_CODE = 34
 
-fun checkLocationPermissions(activity: Activity) {
-  if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-  else
+fun checkLocationPermissions(activity: Activity) : Boolean {
+  if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+    return true
+  }
+  else {
     ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_PERMISSIONS_REQUEST_CODE)
+    return false
+  }
 }
 
 fun isPermissionGranted(code: Int, grantResults: IntArray): Boolean {
