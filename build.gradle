@@ -2,12 +2,27 @@
 
 buildscript {
   ext.kotlin_version = '1.2.71'
+  ext.gradle_version = '3.2.1'
+
+  ext.app_compat_version = '1.0.0'
+  ext.constraint_layout_version = '2.0.0-alpha2'
+  ext.material_version = '1.0.0'
+  ext.cardview_version = '1.0.0'
+  ext.design_library_version = '26.1.0'
+  ext.support_library_version = '26.1.0'
+
+  ext.play_services_maps_version = '16.0.0'
+  ext.play_services_location_version = '16.0.0'
+
+  ext.anko_commons_version = '0.10.7'
+  ext.gson_version = '2.8.5'
+
   repositories {
     google()
     jcenter()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.2.1'
+    classpath "com.android.tools.build:gradle:$gradle_version"
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
     // NOTE: Do not place your application dependencies here; they belong
