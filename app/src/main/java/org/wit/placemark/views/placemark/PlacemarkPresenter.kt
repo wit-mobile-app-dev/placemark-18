@@ -76,6 +76,7 @@ class PlacemarkPresenter(val view: PlacemarkView) {
     val options = MarkerOptions().title(placemark.title).position(loc)
     map.addMarker(options)
     map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, placemark.zoom))
+    view.showLocation(placemark.lat, placemark.lng)
   }
 
   fun doAddOrSave(title: String, description: String) {
