@@ -7,6 +7,10 @@ import android.view.Menu
 import android.view.MenuItem
 import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_placemark.*
+import kotlinx.android.synthetic.main.placemark_details.*
+import kotlinx.android.synthetic.main.placemark_image.*
+import kotlinx.android.synthetic.main.placemark_location.*
+import kotlinx.android.synthetic.main.placemark_position.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 import org.wit.placemark.R
@@ -45,6 +49,12 @@ class PlacemarkView : AppCompatActivity(), AnkoLogger {
     if (placemark.image != null) {
       chooseImage.setText(R.string.change_placemark_image)
     }
+    showLocation (placemark.lat, placemark.lng)
+  }
+
+  fun showLocation (latitude: Double, longitude : Double) {
+    lat.setText("%.6f".format(latitude))
+    lng.setText("%.6f".format(longitude))
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
