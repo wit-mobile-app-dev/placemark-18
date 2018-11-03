@@ -16,8 +16,8 @@ class PlacemarkListView : AppCompatActivity(), PlacemarkListener {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_placemark_list)
-    toolbarMain.title = title
-    setSupportActionBar(toolbarMain)
+    toolbar.title = title
+    setSupportActionBar(toolbar)
 
     presenter = PlacemarkListPresenter(this)
     val layoutManager = LinearLayoutManager(this)

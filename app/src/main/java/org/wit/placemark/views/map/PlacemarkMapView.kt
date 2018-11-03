@@ -18,7 +18,7 @@ class PlacemarkMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_placemark_map)
-    setSupportActionBar(toolbarMaps)
+    setSupportActionBar(toolbar)
     presenter = PlacemarkMapPresenter(this)
 
     mapView.onCreate(savedInstanceState);

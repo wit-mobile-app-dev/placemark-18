@@ -26,8 +26,8 @@ class PlacemarkView : AppCompatActivity(), AnkoLogger {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_placemark)
-    toolbarAdd.title = title
-    setSupportActionBar(toolbarAdd)
+    toolbar.title = title
+    setSupportActionBar(toolbar)
 
     mapView.onCreate(savedInstanceState);
     mapView.getMapAsync {
