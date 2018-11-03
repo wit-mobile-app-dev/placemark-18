@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: "kotlin-kapt"
+
 androidExtensions {
   experimental = true
 }
@@ -36,7 +38,11 @@ dependencies {
   implementation "com.google.android.gms:play-services-maps:$play_services_maps_version"
   implementation "com.google.android.gms:play-services-location:$play_services_location_version"
   implementation "org.jetbrains.anko:anko-commons:$anko_commons_version"
+  implementation "org.jetbrains.anko:anko:$anko_version"
   implementation "com.google.code.gson:gson:$gson_version"
+  implementation "androidx.room:room-runtime:$room_version"
+  kapt "androidx.room:room-compiler:$room_version"
+
   testImplementation 'junit:junit:4.12'
   androidTestImplementation 'androidx.test:runner:1.1.0'
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
