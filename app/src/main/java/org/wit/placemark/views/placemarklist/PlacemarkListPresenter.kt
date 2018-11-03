@@ -1,12 +1,12 @@
 package org.wit.placemark.views.placemarklist
 
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.BasePresenter
 import org.wit.placemark.views.VIEW
 
 class PlacemarkListPresenter(view: PlacemarkListView) : BasePresenter(view) {
-
-  fun getPlacemarks() = app.placemarks.findAll()
 
   fun doAddPlacemark() {
     view?.navigateTo(VIEW.PLACEMARK)
@@ -18,5 +18,11 @@ class PlacemarkListPresenter(view: PlacemarkListView) : BasePresenter(view) {
 
   fun doShowPlacemarksMap() {
     view?.navigateTo(VIEW.MAPS)
+  }
+
+  fun loadPlacemarks() {
+    async(UI) {
+      view?.showPlacemarks(app.placemarks.findAll())
+    }
   }
 }

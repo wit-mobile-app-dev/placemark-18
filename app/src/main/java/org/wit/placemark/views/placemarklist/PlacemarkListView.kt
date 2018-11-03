@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.*
 import kotlinx.android.synthetic.main.activity_placemark_list.*
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
 import org.wit.placemark.R
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.BaseView
@@ -24,7 +26,11 @@ class PlacemarkListView :  BaseView(), PlacemarkListener {
 
     val layoutManager = LinearLayoutManager(this)
     recyclerView.layoutManager = layoutManager
-    recyclerView.adapter = PlacemarkAdapter(presenter.getPlacemarks(), this)
+    presenter.loadPlacemarks()
+  }
+
+  override fun showPlacemarks(placemarks: List<PlacemarkModel>) {
+    recyclerView.adapter = PlacemarkAdapter(placemarks, this)
     recyclerView.adapter?.notifyDataSetChanged()
   }
 
@@ -46,7 +52,7 @@ class PlacemarkListView :  BaseView(), PlacemarkListener {
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    recyclerView.adapter?.notifyDataSetChanged()
+    presenter.loadPlacemarks()
     super.onActivityResult(requestCode, resultCode, data)
   }
 }
