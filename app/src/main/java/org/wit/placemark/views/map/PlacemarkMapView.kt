@@ -10,9 +10,11 @@ import org.wit.placemark.helpers.readImageFromPath
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.BaseView
 
+
 class PlacemarkMapView : BaseView(), GoogleMap.OnMarkerClickListener {
 
   lateinit var presenter: PlacemarkMapPresenter
+  lateinit var map : GoogleMap
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -23,8 +25,9 @@ class PlacemarkMapView : BaseView(), GoogleMap.OnMarkerClickListener {
 
     mapView.onCreate(savedInstanceState);
     mapView.getMapAsync {
-      presenter.doPopulateMap(it)
-      it.setOnMarkerClickListener(this)
+      map = it
+      map.setOnMarkerClickListener(this)
+      presenter.loadPlacemarks()
     }
   }
 
@@ -32,6 +35,10 @@ class PlacemarkMapView : BaseView(), GoogleMap.OnMarkerClickListener {
     currentTitle.text = placemark.title
     currentDescription.text = placemark.description
     imageView.setImageBitmap(readImageFromPath(this, placemark.image))
+  }
+
+  override fun showPlacemarks(placemarks: List<PlacemarkModel>) {
+    presenter.doPopulateMap(map, placemarks)
   }
 
   override fun onMarkerClick(marker: Marker): Boolean {
