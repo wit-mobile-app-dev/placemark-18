@@ -54,6 +54,8 @@ open abstract class BaseView() : AppCompatActivity() {
 
   open fun showPlacemark (placemark : PlacemarkModel) {}
 
+  open fun showPlacemarks (placemarks: List<PlacemarkModel>) {}
+
   fun close () {
     finish()
   }
