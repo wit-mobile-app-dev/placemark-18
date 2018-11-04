@@ -3,12 +3,15 @@ package org.wit.placemark.views.placemark
 import android.annotation.SuppressLint
 import android.content.Intent
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import org.wit.placemark.helpers.checkLocationPermissions
+import org.wit.placemark.helpers.createDefaultLocationRequest
 import org.wit.placemark.helpers.isPermissionGranted
 import org.wit.placemark.helpers.showImagePicker
 import org.wit.placemark.main.MainApp
@@ -19,6 +22,7 @@ import org.wit.placemark.views.*
 class PlacemarkPresenter(view: PlacemarkView) : BasePresenter(view) {
 
   var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
+  val locationRequest = createDefaultLocationRequest()
   var placemark = PlacemarkModel()
 
   var map: GoogleMap? = null
@@ -53,6 +57,23 @@ class PlacemarkPresenter(view: PlacemarkView) : BasePresenter(view) {
     map?.addMarker(options)
     map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(placemark.lat, placemark.lng), placemark.zoom))
     view?.showPlacemark(placemark)
+  }
+
+
+  @SuppressLint("MissingPermission")
+  fun doResartLocationUpdates() {
+
+    var locationCallback = object : LocationCallback() {
+      override fun onLocationResult(locationResult: LocationResult?) {
+        if (locationResult != null && locationResult.locations != null) {
+          val l = locationResult.locations.last()
+          locationUpdate(l.latitude, l.longitude)
+        }
+      }
+    }
+    if (!edit) {
+      locationService.requestLocationUpdates(locationRequest, locationCallback, null)
+    }
   }
 
   override fun doRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
