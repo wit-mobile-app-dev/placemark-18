@@ -21,14 +21,15 @@ enum class VIEW {
 
 open abstract class BaseView() : AppCompatActivity() {
 
-  var basePresenter : BasePresenter? = null
+  var basePresenter: BasePresenter? = null
 
-  fun navigateTo (view: VIEW, code : Int = 0, key:String = "", value: Parcelable? = null) {
-    var intent = Intent (this, PlacemarkListView::class.java)
+  fun navigateTo(view: VIEW, code: Int = 0, key: String = "", value: Parcelable? = null) {
+    var intent = Intent(this, PlacemarkListView::class.java)
     when (view) {
-      VIEW.LOCATION ->  intent = Intent (this, EditLocationView::class.java)
-      VIEW.PLACEMARK ->  intent = Intent (this, PlacemarkView::class.java)
-      VIEW.MAPS ->  intent = Intent (this, PlacemarkMapView::class.java)
+      VIEW.LOCATION -> intent = Intent(this, EditLocationView::class.java)
+      VIEW.PLACEMARK -> intent = Intent(this, PlacemarkView::class.java)
+      VIEW.MAPS -> intent = Intent(this, PlacemarkMapView::class.java)
+      VIEW.LIST -> intent = Intent(this, PlacemarkListView::class.java)
     }
     if (key != "") {
       intent.putExtra(key, value)
@@ -36,7 +37,7 @@ open abstract class BaseView() : AppCompatActivity() {
     startActivityForResult(intent, code)
   }
 
-  fun initPresenter (presenter: BasePresenter): BasePresenter {
+  fun initPresenter(presenter: BasePresenter): BasePresenter {
     basePresenter = presenter
     return presenter
   }
@@ -52,13 +53,16 @@ open abstract class BaseView() : AppCompatActivity() {
     super.onDestroy()
   }
 
-  open fun showPlacemark (placemark : PlacemarkModel) {}
+  open fun showPlacemark(placemark: PlacemarkModel) {}
 
-  open fun showPlacemarks (placemarks: List<PlacemarkModel>) {}
+  open fun showPlacemarks(placemarks: List<PlacemarkModel>) {}
 
-  fun close () {
+  fun close() {
     finish()
   }
+
+  open fun showProgress() {}
+  open fun hideProgress() {}
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
