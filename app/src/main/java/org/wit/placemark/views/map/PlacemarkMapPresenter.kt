@@ -9,8 +9,9 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.BasePresenter
+import org.wit.placemark.views.BaseView
 
-class PlacemarkMapPresenter(view: PlacemarkMapView) : BasePresenter(view) {
+class PlacemarkMapPresenter(view: BaseView) : BasePresenter(view) {
 
   fun doPopulateMap(map: GoogleMap, placemarks:List<PlacemarkModel>) {
     map.uiSettings.setZoomControlsEnabled(true)

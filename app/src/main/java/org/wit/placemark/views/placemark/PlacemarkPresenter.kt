@@ -19,7 +19,7 @@ import org.wit.placemark.models.Location
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.*
 
-class PlacemarkPresenter(view: PlacemarkView) : BasePresenter(view) {
+class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
 
   var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
   val locationRequest = createDefaultLocationRequest()

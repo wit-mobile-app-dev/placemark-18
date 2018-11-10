@@ -8,8 +8,9 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import org.wit.placemark.models.Location
 import org.wit.placemark.views.BasePresenter
+import org.wit.placemark.views.BaseView
 
-class EditLocationPresenter(view: EditLocationView) : BasePresenter(view) {
+class EditLocationPresenter(view: BaseView) : BasePresenter(view) {
 
   var location = Location()
 

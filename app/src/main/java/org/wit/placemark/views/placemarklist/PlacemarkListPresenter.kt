@@ -4,9 +4,10 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.BasePresenter
+import org.wit.placemark.views.BaseView
 import org.wit.placemark.views.VIEW
 
-class PlacemarkListPresenter(view: PlacemarkListView) : BasePresenter(view) {
+class PlacemarkListPresenter(view: BaseView) : BasePresenter(view) {
 
   fun doAddPlacemark() {
     view?.navigateTo(VIEW.PLACEMARK)
